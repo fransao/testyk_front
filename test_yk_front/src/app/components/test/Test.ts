@@ -2,9 +2,9 @@ export class Test {
     id: string;
     name: string;
     qualification: number;
-    date: Date;
+    date: string;
    
-    constructor (id: string, name: string, qualification: number, date: Date) {
+    constructor (id: string, name: string, qualification: number, date: string) {
       this.id = id;
       this.name = name;
       this.qualification = qualification;

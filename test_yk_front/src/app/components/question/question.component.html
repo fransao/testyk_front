@@ -1,0 +1,104 @@
+<p>question works!</p>
+
+<div class="container">
+    <h1>Cuestionario para conductores</h1>
+    <br>
+    <div>
+        <label>A continuación, lea las preguntas y seleccione la respuesta correcta:</label>
+    </div>
+    <br>
+    <section class="main" >
+  
+        <table class="table">
+          <caption></caption>
+          <thead class="thead-light">
+          <tr>
+            <th>Prueba</th>
+            <th>Calificación</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+            <th>Print</th>
+            <th>Test</th>
+          </tr>
+          </thead>
+
+          <tbody>
+              @for (question of questions; track question.id){
+                  <tr>
+                      <th scope="row">{{question.name}}</th>
+                      @for (answer of question.answers; track answer.id){
+                        <tr>
+                            <td>{{answer.name}}</td>
+                            <td><label><input type="radio"  value=[answer.id]>>{{answer.name}}</label><br></td>
+                      }
+                      
+                  </tr>
+              }
+              @empty {
+                <div>no answers records found</div>>
+              }
+          </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+        
+      </section>
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>1. ¿Cuál es la principal prioridad al conducir un autobús en áreas residenciales?</label>
+            <div>
+            <label><input type="radio" formControlName="question_1" value="a"> Mantener una velocidad constante sin importar el límite de velocidad.</label><br>
+            <label><input type="radio" formControlName="question_1" value="b"> Asegurarse de que todos los pasajeros estén sentados antes de avanzar.</label><br>
+            <label><input type="radio" formControlName="question_1" value="c"> Reducir la velocidad y estar atento a los peatones y a los niños que pueden cruzar la calle.</label><br>
+            <label><input type="radio" formControlName="question_1" value="d"> Usar la bocina para advertir a los vehículos cercanos.</label><br>
+            <label><input type="radio" formControlName="question_1" value="e"> Mantener el autobús en el centro del carril sin desviarse.</label>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>2. ¿Qué debe hacer un conductor si se aproxima a una señal de pare en una intersección sin visibilidad?</label>
+            <div>
+            <label><input type="radio" formControlName="question_2" value="a"> Pasar rápidamente para evitar retrasos.</label><br>
+            <label><input type="radio" formControlName="question_2" value="b"> Detenerse completamente, revisar a ambos lados y avanzar con precaución.</label><br>
+            <label><input type="radio" formControlName="question_2" value="c"> Continuar sin detenerse si no hay otros vehículos en la intersección.</label><br>
+            <label><input type="radio" formControlName="question_2" value="d"> Aumentar la velocidad para cruzar antes de que el semáforo cambie.</label><br>
+            <label><input type="radio" formControlName="question_2" value="e"> Utilizar las luces de emergencia para advertir a otros conductores.</label>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>3. ¿Cómo debe manejar un conductor de autobús en condiciones de clima adverso, como lluvia intensa?</label>
+            <div>
+            <label><input type="radio" formControlName="question_3" value="a"> Continuar a la misma velocidad si la visibilidad es buena.</label><br>
+            <label><input type="radio" formControlName="question_3" value="b"> Reducir la velocidad y aumentar la distancia de seguimiento.</label><br>
+            <label><input type="radio" formControlName="question_3" value="c"> Utilizar las luces altas para mejorar la visibilidad.</label><br>
+            <label><input type="radio" formControlName="question_3" value="d"> Mantener las ventanas abiertas para evitar el empañamiento.</label><br>
+            <label><input type="radio" formControlName="question_3" value="e"> Aumentar la velocidad para llegar a su destino rápidamente.</label>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>4. En caso de una emergencia médica de un pasajero, ¿cuál es la primera acción que debe tomar el conductor?</label>
+            <div>
+            <label><input type="radio" formControlName="question_4" value="a"> Continuar con la ruta y avisar al personal médico en la próxima parada.</label><br>
+            <label><input type="radio" formControlName="question_4" value="b"> Detener el autobús en un lugar seguro y solicitar asistencia médica inmediata.</label><br>
+            <label><input type="radio" formControlName="question_4" value="c"> Intentar proporcionar primeros auxilios mientras sigue conduciendo.</label><br>
+            <label><input type="radio" formControlName="question_4" value="d"> Pedir a los pasajeros que llamen a una ambulancia</label><br>
+            <label><input type="radio" formControlName="question_4" value="e"> Ignorar la emergencia si no es grave.</label>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label>5. ¿Qué debe hacer un conductor si el autobús se detiene repentinamente debido a una falla mecánica?</label>
+            <div>
+            <label><input type="radio" formControlName="question_5" value="a"> Tratar de reiniciar el autobús y continuar si es posible.</label><br>
+            <label><input type="radio" formControlName="question_5" value="b"> Enviar un mensaje a la base de operaciones e informar a los pasajeros de la situación.</label><br>
+            <label><input type="radio" formControlName="question_5" value="c"> Salir del autobús y dejar a los pasajeros en la carretera.</label><br>
+            <label><input type="radio" formControlName="question_5" value="d"> Esperar en el autobús hasta que la falla se solucione por sí sola.</label><br>
+            <label><input type="radio" formControlName="question_5" value="e"> Ignorar la falla y continuar con el viaje si el autobús parece funcionar.</label>
+            </div>
+        </div>
+    
+    <br>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>

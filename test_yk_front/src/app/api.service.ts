@@ -15,14 +15,18 @@ export class ApiService {
   
   constructor(private http: HttpClient) {}
 
-  getTests(): Observable<any> { 
-    return this.http.post<any>(`${this.getTestsUrl}`,  {
+  
+  getTests(): Observable<Test[]> { 
+    return this.http.post<Test[]>(`${this.getTestsUrl}`,  {
       headers: new HttpHeaders({
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin':'*',
+        'Access-Control-Allow-Methods':	'GET, POST',
+        'Access-Control-Allow-Headers':	'*'
       }),
       mode: 'no-cors',
-      responseType: 'json' as 'json'
+      responseType: 'json'
     }).pipe(
       catchError(error => {
         console.error('Error occurred:', error);
@@ -31,12 +35,11 @@ export class ApiService {
     );
   }
 
-  getQuestions(): Observable<any> { 
-    return this.http.post<any>(`${this.getQuestionsUrl}`, "");
+  getQuestions(): Observable<Test[]> { 
+    return this.http.post<Test[]>(`${this.getQuestionsUrl}`, "");
   }
 
-  postAnswers(data: any): Observable<any> {
-    return this.http.post<any>(`${this.putAnswersUrl}`, data)
+  postAnswers(data: Test[]): Observable<Test[]> {
+    return this.http.post<Test[]>(`${this.putAnswersUrl}`, data)
   }
-
 }

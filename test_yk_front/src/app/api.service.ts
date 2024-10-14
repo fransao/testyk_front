@@ -23,17 +23,7 @@ export class ApiService {
 
   
   getTests(): Observable<Test[]> { 
-    return this.http.post<Test[]>(`${this.getTestsUrl}`,  {
-      headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin':'*',
-        'Access-Control-Allow-Methods':	'GET, POST',
-        'Access-Control-Allow-Headers':	'*'
-      }),
-      mode: 'no-cors',
-      responseType: 'json'
-    }).pipe(
+    return this.http.get<Test[]>(`${this.getTestsUrl}`).pipe(
       catchError(error => {
         console.error('Error occurred:', error);
         return throwError(() =>error);

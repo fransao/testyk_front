@@ -17,17 +17,20 @@ export class TestComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private service: ApiService, private router: Router) {
 
-    this.tests = [
+    this.tests = [];
+    /*
+    [
     {id: "1", name: "Test conductor 1", qualification: 9.8, date: "2024-07-25"},
     {id: "2", name: "Test conductor 2", qualification: 0.0, date: ""},
     {id: "3", name: "Test conductor 3", qualification: 7.3, date: "2024-08-06"},
     {id: "4", name: "Test conductor 4", qualification: 0, date: ""},
     {id: "5", name: "Test conductor 5", qualification: 3.5, date: "2024-07-11"}
    ]
+    */
   }
 
   ngOnInit(): void {
-     //this.loadtests();
+     this.loadtests();
   }
 
   seeQuestions(testId: string): void {

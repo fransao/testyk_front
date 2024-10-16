@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Test } from './components/test/Test';
+import { UserTest } from './components/test/UserTest';
+import { AnswerQuestion } from './components/question/AnswerQuestion';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,8 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   
-  getTests(): Observable<Test[]> { 
-    return this.http.get<Test[]>(`${this.getTestsUrl}`).pipe(
+  getTests(): Observable<UserTest[]> { 
+    return this.http.get<UserTest[]>(`${this.getTestsUrl}`).pipe(
       catchError(error => {
         console.error('Error occurred:', error);
         return throwError(() =>error);
@@ -31,11 +32,16 @@ export class ApiService {
     );
   }
 
-  getQuestions(): Observable<Test[]> { 
-    return this.http.post<Test[]>(`${this.getQuestionsUrl}`, "");
+  getQuestions(): Observable<AnswerQuestion[]> { 
+    return this.http.get<AnswerQuestion[]>(`${this.getQuestionsUrl}`).pipe(
+      catchError(error => {
+        console.error('Error occurred:', error);
+        return throwError(() =>error);
+      })
+    );
   }
 
-  postAnswers(data: Test[]): Observable<Test[]> {
-    return this.http.post<Test[]>(`${this.postAnswersUrl}`, data)
+  postAnswers(data: UserTest[]): Observable<UserTest[]> {
+    return this.http.post<UserTest[]>(`${this.postAnswersUrl}`, data)
   }
 }

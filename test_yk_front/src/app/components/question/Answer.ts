@@ -1,9 +1,9 @@
 export class Answer {
-    id: string;
-    name: string;
+    id: number;
+    description: string;
 
-    constructor (id: string, name: string) {
+    constructor (id: number, description: string) {
         this.id = id;
-        this.name = name;
+        this.description = description;
       }
 }

@@ -1,14 +1,15 @@
 export class Test {
-    id: string;
-    name: string;
-    qualification: number;
-    date: string;
-   
-    constructor (id: string, name: string, qualification: number, date: string) {
-      this.id = id;
-      this.name = name;
-      this.qualification = qualification;
-      this.date = date;
+    id: number;
+    description: string;
+    status: string;
+    dateExpiration: string;
+    lastScore: number;
+
+    constructor (id: number, description: string, status: string, dateExpiration: string, lastScore: number) {
+        this.id = id;
+        this.description = description;
+        this.status = status;
+        this.dateExpiration = dateExpiration;
+        this.lastScore = lastScore;
     }
-  
-  }
+}

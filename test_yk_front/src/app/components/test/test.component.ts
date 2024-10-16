@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../api.service';
-import { Test } from './Test';
+import { UserTest } from './UserTest';
 import { Router, RouterLink } from '@angular/router';
+import { log } from 'console';
 
 @Component({
   selector: 'app-test',
@@ -13,11 +14,11 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class TestComponent implements OnInit {
  
-  public tests: Test[] = [];
+  public userTests: UserTest[] = [];
 
   constructor(private fb: FormBuilder, private service: ApiService, private router: Router) {
 
-    this.tests = [];
+    this.userTests = [];
     /*
     [
     {id: "1", name: "Test conductor 1", qualification: 9.8, date: "2024-07-25"},
@@ -31,18 +32,19 @@ export class TestComponent implements OnInit {
 
   ngOnInit(): void {
      this.loadtests();
+     console.log("user test: " + this.userTests)
   }
 
-  seeQuestions(testId: string): void {
+  seeQuestions(userId:number, testId: number): void {
     this.router.navigate(['/question', testId]);
   }
 
   
   loadtests(): void {
     this.service.getTests().subscribe({
-      next: (data: Test[]) => {
+      next: (data: UserTest[]) => {
         console.log(data);
-        this.tests = data;
+        this.userTests = data;
       }, error: (err) => console.log(err)
     });
   }

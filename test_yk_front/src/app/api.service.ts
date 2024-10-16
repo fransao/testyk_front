@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { UserTest } from './components/test/UserTest';
@@ -41,7 +41,12 @@ export class ApiService {
     );
   }
 
-  postAnswers(data: UserTest[]): Observable<UserTest[]> {
-    return this.http.post<UserTest[]>(`${this.postAnswersUrl}`, data)
+  postAnswers(userId: number, testId: number, data: AnswerQuestion[]): Observable<AnswerQuestion[]> {
+    const params = new HttpParams()
+            .append('userID', userId)
+            .append('testID', testId);
+    return this.http.post<AnswerQuestion[]>(`${this.postAnswersUrl}`, data, {
+      params: params,
+  })
   }
 }

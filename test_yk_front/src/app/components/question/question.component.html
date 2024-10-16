@@ -13,8 +13,8 @@
             @for (question of questions; track question; let index = $index){
                 <div class="form-group">
                     <label>{{index + 1}} {{question.question}}</label>
-                    @if (question.selectedAnswer == -1) {
-                        <small class="text-danger"> Respuesta requerida.</small>
+                    @if (validateRequired && question.selectedAnswer == -1) {
+                        <small class="text-danger">Respuesta requerida.</small>
                     }
                     @for (answer of question.answers; track answer.id){
                         <div>
@@ -30,12 +30,17 @@
             }
             </div>
             <br>
-            <div class="alert alert-success" role="alert">
-                Respuestas enviadas con èxito!
-              </div>
-            <div class="alert alert-danger" role="alert">
-                Hay preguntas sin responser! Por favor responder todas las preguntas.
-            </div>
+        
+            @if (validateRequired) {
+                <div class="alert alert-danger" role="alert">
+                    Hay preguntas sin responser! Por favor responder todas las preguntas.
+                </div>
+            }
+            @if (sendAnswers) {
+                <div class="alert alert-success" role="alert">
+                    Respuestas enviadas con èxito!
+                </div>
+            }
             <button type="submit" class="btn btn-primary">Enviar</button>
 
         </form>   

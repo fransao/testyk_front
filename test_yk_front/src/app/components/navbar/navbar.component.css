@@ -1,7 +1,31 @@
+/*
 nav {
     background: #3f51b5;
     color: white;
     padding: 10px;
     text-align: center;
 }
-  
+    */
+
+.navbar {
+    display: flex;              /* Habilita flexbox */
+    align-items: center;       /* Alinea verticalmente los elementos al centro */
+    justify-content: space-between; /* Espacio entre los elementos */
+    /*background-color: #333;     Color de fondo */
+    background: #e70b0b;
+    
+    text-align: center;
+    padding: 5px 10px;        /* Espaciado interno */
+    color: white;              /* Color del texto */
+}
+
+.navbar-title {
+    flex-grow: 1;              /* Permite que el título ocupe el espacio restante */
+    text-align: center;        /* Centra el título */
+    color: rgb(0, 0, 0);
+}
+
+.logo {
+    height: 50px;              /* Ajusta la altura de las imágenes */
+    margin: 0 5px;           /* Espaciado alrededor de las imágenes */
+}

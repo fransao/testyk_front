@@ -12,16 +12,19 @@ import { AnswerQuestion } from './AnswerQuestion';
   styleUrl: './question.component.css'
 })
 export class QuestionComponent implements OnInit {
-  @Input() userId: number | null = null;
-  @Input() testId: number | null = null;
+  @Input() userId: number = -1;
+  @Input() testId: number = -1;
   formulario: FormGroup;
   public questions: AnswerQuestion[] = [];
+  public validateRequired: boolean; 
+  public sendAnswers: boolean;
 
   constructor(private fb: FormBuilder, private router: ActivatedRoute, private service: ApiService) { 
     this.formulario = this.fb.group({
       answers: this.fb.array([])
     });
-    
+    this.validateRequired = false;
+    this.sendAnswers = false;
   }
 
   ngOnInit(): void {
@@ -61,7 +64,26 @@ export class QuestionComponent implements OnInit {
       const selectedAnswers = this.formulario.value.answers;
       console.log('Respuestas seleccionadas:', selectedAnswers);
       // Aquí puedes enviar `selectedAnswers` a un servicio o procesarlo como necesites
+      this.validateRequired = false;
+      this.sendAnswers = true;
+      this.service.postAnswers(this.userId, this.testId, this.questions).subscribe({
+        next: (data: AnswerQuestion[]) => {
+          console.log('Respuesta recibida:', data);
+          this.questions = data;
+          this.addControls();
+          // Puedes agregar una notificación de éxito aquí, si es necesario.
+        },
+        error: (err) => {
+          console.error('Error al enviar las respuestas:', err);
+          // Puedes agregar lógica para mostrar un mensaje de error al usuario aquí.
+        },
+        complete: () => {
+          console.log('Llamada a postAnswers completada');
+          // Aquí puedes realizar acciones adicionales una vez que la llamada se complete.
+        }
+      });
     } else {
+      this.validateRequired = true;
       console.log('Hay preguntas sin responser');
       this.formulario.markAllAsTouched(); // Marca todos los controles como tocados
     }

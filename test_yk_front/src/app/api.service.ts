@@ -16,8 +16,8 @@ export class ApiService {
   private putAnswersUrl   = 'http://localhost:8080/answers';
   */
 
-  private getTestsUrl     = 'http://localhost:8080/course/user/tests?userID=1234';
-  private getQuestionsUrl = 'http://localhost:8080/course/answers/question?questionID=1';
+  private getTestsUrl     = 'http://localhost:8080/course/user/tests';
+  private getQuestionsUrl = 'http://localhost:8080/course/answers/question?';
   private postAnswersUrl  = 'http://localhost:8080/course/validate/answers/test';
   
   constructor(private http: HttpClient) {}
@@ -32,8 +32,12 @@ export class ApiService {
     );
   }
 
-  getQuestions(): Observable<AnswerQuestion[]> { 
-    return this.http.get<AnswerQuestion[]>(`${this.getQuestionsUrl}`).pipe(
+  getQuestions(testId: number): Observable<AnswerQuestion[]> { 
+    const params = new HttpParams()
+            .append('testID', testId);
+    return this.http.get<AnswerQuestion[]>(`${this.getQuestionsUrl}`, {
+      params: params,
+  }).pipe(
       catchError(error => {
         console.error('Error occurred:', error);
         return throwError(() =>error);

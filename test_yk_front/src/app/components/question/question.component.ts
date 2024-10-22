@@ -12,8 +12,8 @@ import { AnswerQuestion } from './AnswerQuestion';
   styleUrl: './question.component.css'
 })
 export class QuestionComponent implements OnInit {
-  @Input() userId: number = -1;
-  @Input() testId: number = -1;
+  userId !: number;
+  testId !: number;
   formulario: FormGroup;
   public questions: AnswerQuestion[] = [];
   public validateRequired: boolean; 
@@ -28,15 +28,21 @@ export class QuestionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.loadQuestions();
+    
+    this.router.paramMap.subscribe(params => {
+      const testIdString = params.get('testId');
+      console.error('testIdString is:' + testIdString);
+      this.testId = testIdString ? Number(testIdString) : -1;
+    });
+    console.error('testId is:' + this.router.snapshot.paramMap.get('testId'));
+    
+     this.loadQuestions(this.testId);
      console.log("questions: " + this.questions)
-     this.userId = Number(this.router.snapshot.paramMap.get('userId'));
-     this.testId = Number(this.router.snapshot.paramMap.get('testId'));
-     console.error('test id is:' + this.testId);
+     
   }
 
-  loadQuestions(): void {
-    this.service.getQuestions().subscribe({
+  loadQuestions(testId: number): void {
+    this.service.getQuestions(testId).subscribe({
       next: (data: AnswerQuestion[]) => {
         console.log(data);
         this.questions = data;

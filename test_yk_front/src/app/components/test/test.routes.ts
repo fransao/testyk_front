@@ -4,6 +4,6 @@ import { QuestionComponent } from '../question/question.component';
 
 export const TEST_ROUTES: Routes = [
     { path: '', component: TestComponent }
-    //{ path: 'question/:id', component: QuestionComponent },
+    //{ path: 'question/:testId', component: QuestionComponent },
     //{ path: '**', redirectTo: '' }
 ];

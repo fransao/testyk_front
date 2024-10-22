@@ -6,7 +6,7 @@ export const routes: Routes = [
         loadChildren: () => import('./components/test/test.routes').then(m => m.TEST_ROUTES)
     },
     {
-        path: 'question/:id',
+        path: 'question/:testId',
         loadChildren: () => import('./components/question/question.routes').then(m => m.QUESTION_ROUTES)
     },
     {

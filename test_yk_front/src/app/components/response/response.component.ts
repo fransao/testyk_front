@@ -29,14 +29,14 @@ export class ResponseComponent {
     //console.log('responses::::::: ' + this.responses)
     this.responses = {
         "idTest": 1,
-        "description": "¿Cuál es la principal prioridad al conducir un autobús en áreas residenciales?",
-        "score": 0.0,
+        "description": "Lógica y razonamiento",
+        "score": 5.0,
         "questions": [
             {
                 "questionID": 2,
                 "question": "¿Qué debe hacer un conductor si se aproxima a una señal de pare en una intersección sin visibilidad?",
                 "selectedAnswer": 1,
-                "isCorrect": false,
+                "isCorrect": true,
                 "answers": [
                     {
                         "id": 1,
@@ -89,7 +89,7 @@ export class ResponseComponent {
                 ]
             }
         ]
-    };
+    }
   }
 
   onSubmit() {

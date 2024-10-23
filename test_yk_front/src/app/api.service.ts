@@ -16,9 +16,11 @@ export class ApiService {
   private putAnswersUrl   = 'http://localhost:8080/answers';
   */
 
-  private getTestsUrl     = 'http://localhost:8080/course/user/tests';
-  private getQuestionsUrl = 'http://localhost:8080/course/answers/question?';
-  private postAnswersUrl  = 'http://localhost:8080/course/validate/answers/test';
+  private getTestsUrl            = 'http://localhost:8080/course/user/tests';
+  private getQuestionsUrl        = 'http://localhost:8080/course/answers/question?';
+  private postAnswersUrl         = 'http://localhost:8080/course/validate/answers/test';
+  private getApprovedTestsUrl    = 'http://localhost:8080/course/user/tests/approved';
+  private downloadCertificateUrl = 'http://localhost:8080/course/certificate/user/';
   
   constructor(private http: HttpClient) {}
 
@@ -26,10 +28,36 @@ export class ApiService {
   getTests(): Observable<UserTest[]> { 
     return this.http.get<UserTest[]>(`${this.getTestsUrl}`).pipe(
       catchError(error => {
-        console.error('Error occurred:', error);
+        console.error('[getTests] Error occurred: ', error);
         return throwError(() =>error);
       })
     );
+  }
+
+  getApprovedUserTests(): Observable<UserTest[]> { 
+    return this.http.get<UserTest[]>(`${this.getApprovedTestsUrl}`).pipe(
+      catchError(error => {
+        console.error('[getApprovedUserTests] Error occurred: ', error);
+        return throwError(() =>error);
+      })
+    );
+  }
+
+  downloadCertificate(user:number, test: number): void {
+    const endpoint = `${this.downloadCertificateUrl}${user}/test/${test}`;
+    this.http.post(`${endpoint}`, null, { responseType: 'blob' })
+    .subscribe((response: Blob) => {
+      const blob = new Blob([response], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = test+'_'+new Date()+'.pdf'; // Name of the file to download
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }, error => {
+      console.error('[downloadCertificate] Download error:', error);
+    });
   }
 
   getQuestions(testId: number): Observable<AnswerQuestion[]> { 
@@ -39,7 +67,7 @@ export class ApiService {
       params: params,
   }).pipe(
       catchError(error => {
-        console.error('Error occurred:', error);
+        console.error('[getQuestions] Error occurred:', error);
         return throwError(() =>error);
       })
     );

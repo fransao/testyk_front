@@ -36,7 +36,7 @@ export class TestComponent implements OnInit {
   }
 
   seeQuestions(userId:number, testId: number): void {
-    this.router.navigate(['/question', testId]);
+    this.router.navigate(['/evaluation', testId, '/user', userId]);
   }
 
   

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,5 +9,19 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+  title !: string;
 
+  constructor(private router: ActivatedRoute) {
+  }
+
+  ngOnInit(): void {
+    
+    this.router.queryParamMap.subscribe(params => {
+      
+      const titleString = params.get('title');
+      console.error('titleString is:' + titleString);
+      this.title = titleString ? titleString : "";
+      
+    });
+  }
 }

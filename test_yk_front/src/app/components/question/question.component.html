@@ -1,8 +1,4 @@
-<p>question works!</p>
-
 <div class="container">
-    <h1>Cuestionario para conductores</h1>
-    <br>
     <div>
         <label>A continuación, lea las preguntas y seleccione la respuesta correcta:</label>
     </div>
@@ -10,7 +6,7 @@
     <section class="main" >
         <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
             <div formArrayName="answers">
-            @for (question of questions; track question; let index = $index){
+            @for (question of questions; track question; let index = $index) {
                 <div class="form-group">
                     <label>{{index + 1}} {{question.question}}</label>
                     @if (validateRequired && question.selectedAnswer == -1) {
@@ -38,13 +34,13 @@
             }
             @if (sendAnswers) {
                 <div class="alert alert-success" role="alert">
-                    Respuestas enviadas con èxito!
+                    Respuestas enviadas con éxito!
                 </div>
+            } @else {
+                <!--<button type="submit" class="btn btn-primary" (click)="sendTest(userId, testId)">Enviar</button>-->
+                <button type="submit" class="btn btn-primary">Enviar</button>
             }
-            <button type="submit" class="btn btn-primary">Enviar</button>
-
-        </form>   
-
-        
-      </section>
-    </div>
+    
+        </form>
+    </section>
+</div>

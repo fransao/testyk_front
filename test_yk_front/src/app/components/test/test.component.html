@@ -3,15 +3,6 @@
 <div class="container" id="tests">
     <div class="row">
       <div class="col">
-        <section>
-          <header class="header">
-            <div class="row">
-              <div class="col-md-12">
-                <h4>Evaluaciones</h4>
-              </div>            
-            </div>
-          </header>
-        </section>
   
         <section class="main" >
   
@@ -19,8 +10,8 @@
             <caption></caption>
             <thead class="thead-light">
             <tr>
-              <th>User</th>
-              <th>Prueba</th>
+              <th>Evaluación</th>
+              <th>Nombre</th>
               <th>Calificación</th>
               <th>Estado</th>
               <th>Fecha Vcto</th>
@@ -33,8 +24,8 @@
                 @for (userTest of userTests; track userTest.userId) {
                   @for (test of userTest.tests; track test.id) {
                     <tr>
-                        <th scope="row">{{userTest.userId}}</th>
-                        <td>{{test.description}}</td>
+                        <th scope="row">{{test.description}}</th>
+                        <td>{{userTest.userName}}</td>
                         <td>{{test.lastScore}}</td>
                         @if(test.lastScore > 0 && test.lastScore < 7) {
                           <td>Reprobado</td>
@@ -81,8 +72,9 @@
                          } @else {
                           <td>
                             <!--<a [routerLink]="['/question']">Test</a>-->
-                            <a routerLink="/question/{{test.id}}">Test</a>
+                            <a [routerLink]="['/evaluation', test.id, 'user', userTest.userId]" [queryParams]="{ title: test.description }">Test</a>
                             <!--<button type="button" class="btn btn-primary" (click)="seeQuestions(userTest.userId, test.id)">Test</button> -->
+                            
                           </td>
                          }
                        <td></td>

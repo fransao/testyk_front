@@ -1,10 +1,5 @@
-<div class="response">
-    <p>{{ message }}</p>
-    <pre>{{ responses }}</pre>
-</div>
-
 <div class="container">
-    <!--
+   
         @if (responses.score >= 7) {
             <div class="alert alert-success">
                 <label>Felicitaciones!!!, has aprobado la evaluación {{responses.description}}, tu puntaje obtenido fue: {{responses.score}}. Te invitamos a revisar las respuestas:</label>
@@ -13,35 +8,38 @@
             <div class="alert alert-danger">
                 <label>Lo sentimos!!!, has reprobado la evaluación {{responses.description}}, tu puntaje obtenido fue: {{responses.score}}. Te invitamos a revisar las respuestas:</label>
             </div>
-        }-->
+        }
     
     <br>
     <section class="main" >
         <!--<form [formGroup]="formulario" (ngSubmit)="onSubmit()">-->
         <form (ngSubmit)="onSubmit()">
-            <div formArrayName="answers">
+            
             @for (question of responses.questions; track question; let index = $index) {
                 <div class="form-group">
                     <label>{{index + 1}} {{question.question}}</label>
                     
                     @for (answer of question.answers; track answer.id){
                         <div>
-                            @if (question.isCorrect) {
+                            @if (question.selectedAnswer == answer.id && question.isCorrect) {
                                 <label class="text-success">
-                                    <i class="bi bi-check"></i>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
                                         <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
                                     </svg>
-                                    <input type="radio" value={{answer.id}} (change)="question.selectedAnswer = answer.id">
+                                    <input type="radio" value={{answer.id}} (change)="question.selectedAnswer = answer.id" disabled="true">
                                       {{answer.description}}
                                   </label>
-                            } @else {
+                            } @else if (question.selectedAnswer == answer.id && !question.isCorrect) {
                                 <label class="text-danger">
-                                    <i class="bi bi-x"></i>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
                                         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
                                     </svg>
-                                    <input type="radio" value={{answer.id}} (change)="question.selectedAnswer = answer.id">
+                                    <input type="radio" value={{answer.id}} (change)="question.selectedAnswer = answer.id" disabled="true">
+                                      {{answer.description}}
+                                  </label>
+                            }@else {
+                                <label >
+                                    <input type="radio" value={{answer.id}} (change)="question.selectedAnswer = answer.id" disabled="true">
                                     {{answer.description}}
                                 </label>
                             }
@@ -52,7 +50,9 @@
                 </div>
                 <br>
             }
-            </div>
+            @empty {
+                <div>no answers records found</div>
+            }
             <br>
     
         </form>

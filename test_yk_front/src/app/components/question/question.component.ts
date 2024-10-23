@@ -86,7 +86,7 @@ export class QuestionComponent implements OnInit {
       this.sendAnswers = true;
       this.service.postAnswers(this.userId, this.testId, this.questions).subscribe({
         next: (data: AnswerQuestion[]) => {
-          
+          const responses = data;
           this.questions = data;
           //this.addControls();
           console.log('Respuesta recibida:', data);

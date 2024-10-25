@@ -2,17 +2,16 @@
    
         @if (responses.score >= 7) {
             <div class="alert alert-success">
-                <label>Felicitaciones!!!, has aprobado la evaluación <b>{{responses.description}}</b>, tu puntaje obtenido fue: <b>{{responses.score}}</b>. Te invitamos a revisar las respuestas:</label>
+                <label>Felicitaciones!!!, has aprobado la evaluación <b>{{responses.description}}</b>, tu puntaje obtenido fue: <b>{{responses.score}} de 10</b>. Te invitamos a revisar las respuestas:</label>
             </div>
         } @else {
             <div class="alert alert-danger">
-                <label>Lo sentimos!!!, has reprobado la evaluación <b>{{responses.description}}</b>, tu puntaje obtenido fue: <b>{{responses.score}}</b>. Te invitamos a revisar las respuestas:</label>
+                <label>Lo sentimos!!!, has reprobado la evaluación <b>{{responses.description}}</b>, tu puntaje obtenido fue: <b>{{responses.score}} de 10</b>. Te invitamos a revisar las respuestas:</label>
             </div>
         }
     
     <br>
     <section class="main" >
-        <!--<form [formGroup]="formulario" (ngSubmit)="onSubmit()">-->
         <form (ngSubmit)="onSubmit()">
             
             @for (question of responses.questions; track question; let index = $index) {
@@ -54,7 +53,6 @@
                 <div>no answers records found</div>
             }
             <br>
-    
         </form>
     </section>
 </div>

@@ -24,6 +24,9 @@
                 </div>
                 <br>
             }
+            @empty {
+                <div>no questions records found</div>
+              }
             </div>
             <br>
         
@@ -37,7 +40,6 @@
                     Respuestas enviadas con éxito!
                 </div>
             } @else {
-                <!--<button type="submit" class="btn btn-primary" (click)="sendTest(userId, testId)">Enviar</button>-->
                 <button type="submit" class="btn btn-primary">Enviar</button>
             }
     

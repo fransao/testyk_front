@@ -19,7 +19,6 @@ export class DashboardComponent {
     this.router.queryParamMap.subscribe(params => {
       
       const titleString = params.get('title');
-      console.error('titleString is:' + titleString);
       this.title = titleString ? titleString : "";
       
     });

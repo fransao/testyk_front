@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { UserTest } from './components/test/UserTest';
 import { AnswerQuestion } from './components/question/AnswerQuestion';
+import { format } from 'date-fns';
+import { ResponseTestQuestion } from './components/response/ResponseTestQuestion';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +53,7 @@ export class ApiService {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = test+'_'+new Date()+'.pdf'; // Name of the file to download
+      a.download = test+'_'+ format(new Date(), 'dd/MM/yyyy')+'.pdf'; // Name of the file to download
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -73,11 +75,11 @@ export class ApiService {
     );
   }
 
-  postAnswers(userId: number, testId: number, data: AnswerQuestion[]): Observable<AnswerQuestion[]> {
+  postAnswers(userId: number, testId: number, data: AnswerQuestion[]): Observable<ResponseTestQuestion> {
     const params = new HttpParams()
             .append('userID', userId)
             .append('testID', testId);
-    return this.http.post<AnswerQuestion[]>(`${this.postAnswersUrl}`, data, {
+    return this.http.post<ResponseTestQuestion>(`${this.postAnswersUrl}`, data, {
       params: params,
   })
   }

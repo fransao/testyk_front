@@ -1,6 +1,23 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
+    {
+        path: '',
+        redirectTo: '/login', // Redirige al login si el path está vacío
+        pathMatch: 'full',
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [AuthGuard], // Asegura que solo los usuarios autenticados puedan ver el dashboard
+      },
     {
         path: 'evaluations',
         loadChildren: () => import('./components/test/test.routes').then(m => m.TEST_ROUTES)

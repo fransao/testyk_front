@@ -18,6 +18,8 @@ export class ApiService {
   private putAnswersUrl   = 'http://localhost:8080/answers';
   */
 
+  private logingUrl              = 'http://localhost:8080/course/user/login'
+  private registerUrl            = 'http://localhost:8080/course/user/register'
   private getTestsUrl            = 'http://localhost:8080/course/user/tests';
   private getQuestionsUrl        = 'http://localhost:8080/course/answers/question?';
   private postAnswersUrl         = 'http://localhost:8080/course/validate/answers/test';
@@ -25,6 +27,17 @@ export class ApiService {
   private downloadCertificateUrl = 'http://localhost:8080/course/certificate/user/';
   
   constructor(private http: HttpClient) {}
+
+  login(username: string, password: string): Observable<any> {
+    const body = { username, password };
+    
+    return this.http.post<any>(`${this.logingUrl}`, body).pipe(
+      catchError(error => {
+        console.error('[login] Error occurred: ', error);
+        return throwError(() => error);
+      })
+    );
+  }
 
   
   getTests(): Observable<UserTest[]> { 

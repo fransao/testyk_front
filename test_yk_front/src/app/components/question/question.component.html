@@ -1,0 +1,48 @@
+<div class="container">
+    <div>
+        <label>A continuación, lea las preguntas y seleccione la respuesta correcta:</label>
+    </div>
+    <br>
+    <section class="main" >
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+            <div formArrayName="answers">
+            @for (question of questions; track question; let index = $index) {
+                <div class="form-group">
+                    <label>{{index + 1}} {{question.question}}</label>
+                    @if (validateRequired && question.selectedAnswer == -1) {
+                        <small class="text-danger">Respuesta requerida.</small>
+                    }
+                    @for (answer of question.answers; track answer.id){
+                        <div>
+                            <label>
+                                <input type="radio" [formControlName]="index + ''" value={{answer.id}} (change)="question.selectedAnswer = answer.id">
+                                {{answer.description}}
+                            </label>
+                            <br>
+                        </div>
+                    }
+                </div>
+                <br>
+            }
+            @empty {
+                <div>no questions records found</div>
+              }
+            </div>
+            <br>
+        
+            @if (validateRequired) {
+                <div class="alert alert-danger" role="alert">
+                    Hay preguntas sin responser! Por favor responder todas las preguntas.
+                </div>
+            }
+            @if (sendAnswers) {
+                <div class="alert alert-success" role="alert">
+                    Respuestas enviadas con éxito!
+                </div>
+            } @else {
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            }
+    
+        </form>
+    </section>
+</div>

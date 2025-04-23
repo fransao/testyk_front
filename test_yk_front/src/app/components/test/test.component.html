@@ -29,11 +29,11 @@
                                               
                          @if(test.lastScore < 7 && test.status != 'CERTIFICADO') {
                           <td>
-                            <button type="button" class="btn btn-primary" [routerLink]="['/evaluation', test.id, 'user', userTest.userId]" [queryParams]="{ title: test.description }">Realizar</button>
+                            <button type="button" class="btn btn-primary" [routerLink]="['/dashboard/evaluation', test.id, 'user', userTest.userId]" [queryParams]="{ title: test.description }">Realizar</button>
                           </td>
                          } @else {
                           <td>
-                            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/evaluation', test.id, 'user', userTest.userId]" [queryParams]="{ title: test.description }" disabled="true">Realizar</button>
+                            <button type="button" class="btn btn-outline-secondary" [routerLink]="['/dashboard/evaluation', test.id, 'user', userTest.userId]" [queryParams]="{ title: test.description }" disabled="true">Realizar</button>
                           </td>
                          }
                        <td></td>

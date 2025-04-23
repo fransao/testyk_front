@@ -1,4 +1,30 @@
 /* Aquí puedes agregar estilos adicionales si lo deseas */
+
+:host {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
 .container {
     margin-top: 100px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .login-image {
+    flex: 1;
+    background-image: url('/assets/images/terminal_cucuta.jpeg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50vh;
+    border-radius: 10px;
+    z-index: 1;
   }

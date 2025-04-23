@@ -1,18 +1,24 @@
-<div class="container">
+<div class="container" >
   <div class="row justify-content-center">
     <div class="col-md-6">
       <h2 class="text-center">Login</h2>
-      <form (ngSubmit)="login()">
+      <!-- <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div> -->
+      <div class="login-image"></div>
+      <form [formGroup]="loginForm" (ngSubmit)="login()" >
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
           <input
             type="text"
             id="username"
+            formControlName="username"
             class="form-control"
-            [(ngModel)]="username"
             name="username"
             required
           />
+          <div *ngIf="f['username'].touched && f['username'].invalid">
+            <small class="text-danger" *ngIf="f['username'].errors?.['required']">El username es obligatorio.</small>
+            <small class="text-danger" *ngIf="f['username'].errors?.['username']">El username no es válido.</small>
+          </div>
         </div>
 
         <div class="mb-3">
@@ -20,14 +26,18 @@
           <input
             type="password"
             id="password"
+            formControlName="password"
             class="form-control"
-            [(ngModel)]="password"
             name="password"
             required
           />
+          <div *ngIf="f['password'].touched && f['password'].invalid">
+            <small *ngIf="f['password'].errors?.['required']">La contraseña es obligatoria.</small>
+            <small *ngIf="f['password'].errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</small>
+          </div>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100">Login</button>
+        <button type="submit" class="btn btn-primary w-100" >Iniciar Sesion</button>
       </form>
     </div>
   </div>

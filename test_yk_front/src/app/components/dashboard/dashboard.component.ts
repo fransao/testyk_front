@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../api.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DashboardComponent {
   title !: string;
 
-  constructor(private router: ActivatedRoute) {
+  constructor(private apiService: ApiService, private router: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -22,5 +23,10 @@ export class DashboardComponent {
       this.title = titleString ? titleString : "";
       
     });
+  }
+
+  logout() {
+    this.apiService.logout();
+    // this.router.navigate(['/login']);
   }
 }

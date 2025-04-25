@@ -32,6 +32,7 @@ export class TestComponent implements OnInit {
   loadtests(): void {
     this.service.getTests().subscribe({
       next: (data: UserTest[]) => {
+        console.error('loadtests', data);
         this.userTests = data;
       }, error: (err) => console.log(err)
     });

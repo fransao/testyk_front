@@ -5,6 +5,7 @@ import { UserTest } from './components/test/UserTest';
 import { AnswerQuestion } from './components/question/AnswerQuestion';
 import { format } from 'date-fns';
 import { ResponseTestQuestion } from './components/response/ResponseTestQuestion';
+import { UserSession } from './components/login/UserSession';
 
 @Injectable({
   providedIn: 'root'
@@ -29,9 +30,11 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   login(username: string, password: string): Observable<any> {
-    const body = { username, password };
+    const body = { 
+      "username": username, 
+      "password": password };
     
-    return this.http.post<any>(`${this.logingUrl}`, body).pipe(
+    return this.http.post<UserSession>(`${this.logingUrl}`, body).pipe(
       catchError(error => {
         console.error('[login] Error occurred: ', error);
         return throwError(() => error);
@@ -39,9 +42,27 @@ export class ApiService {
     );
   }
 
+  logout() {
+    localStorage.removeItem('auth_token');
+  }
+
   
   getTests(): Observable<UserTest[]> { 
-    return this.http.get<UserTest[]>(`${this.getTestsUrl}`).pipe(
+    if (!(typeof window !== 'undefined' && localStorage)) {
+      console.error('[api.services] localStorage no definido');
+  
+      // continuar lógica
+    }
+
+
+    const token = localStorage.getItem('authToken'); // Ajusta esto según dónde guardes el token
+
+    // Crear los encabezados, incluyendo el token
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<UserTest[]>(`${this.getTestsUrl}`, { headers }).pipe(
       catchError(error => {
         console.error('[getTests] Error occurred: ', error);
         return throwError(() =>error);
@@ -50,7 +71,21 @@ export class ApiService {
   }
 
   getApprovedUserTests(): Observable<UserTest[]> { 
-    return this.http.get<UserTest[]>(`${this.getApprovedTestsUrl}`).pipe(
+    if (!(typeof window !== 'undefined' && localStorage)) {
+      console.error('[api.services] localStorage no definido');
+  
+      // continuar lógica
+    }
+
+
+    const token = localStorage.getItem('authToken'); // Ajusta esto según dónde guardes el token
+
+    // Crear los encabezados, incluyendo el token
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<UserTest[]>(`${this.getApprovedTestsUrl}`, { headers }).pipe(
       catchError(error => {
         console.error('[getApprovedUserTests] Error occurred: ', error);
         return throwError(() =>error);

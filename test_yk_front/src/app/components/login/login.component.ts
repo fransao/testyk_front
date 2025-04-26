@@ -3,6 +3,7 @@ import {CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../api.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';  // Asegúrate de importar FormsModule
+import { UserSession } from './UserSession';
 
 @Component({
   selector: 'app-login',
@@ -32,13 +33,13 @@ export class LoginComponent {
       const password = this.loginForm.value.password;
 
       this.apiService.login(username, password).subscribe(
-        (response) => {
+        (response: UserSession) => {
           console.error('response autenticación', response);
           // Guardar el token de autenticación (si es necesario) y redirigir
           localStorage.setItem('authToken', response.token);
           this.router.navigate(['/dashboard']); // Redirigir a Dashboard si login es exitoso
         },
-        (error) => {
+        (error: any) => {
           console.error('Error de autenticación', error);
           //this.router.navigate(['/dashboard']); // Redirigir a Dashboard si login es exitoso
         }
